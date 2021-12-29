@@ -16,3 +16,12 @@ ln -s "$HOME/dotfiles/X11" "$HOME/.config"
 ########
 rm -rf "$HOME/.config/i3"
 ln -s "$HOME/dotfiles/i3" "$HOME/.config" 
+
+#######
+# zsh#
+#######
+mkdir -p "$HOME/.config/zsh"
+# -f es de force, si ya existe el link lo borra y recrea
+ln -sf "$HOME/dotfiles/zsh/.zshenv" "$HOME"
+ln -sf "$HOME/dotfiles/zsh/.zshrc" "$HOME/.config/zsh"
+
