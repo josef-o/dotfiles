@@ -4,7 +4,7 @@ source "$ZDOTDIR/external/bd.zsh"
 source "$ZDOTDIR/scripts.zsh"
 
 # startup de i3 y el x server
-if [ "$(tty)" = "/dev/tty1/" ]; 
+if [ "$(tty)" = "/dev/tty1" ]; 
 then
     # exec reemplaza el shell process (i3 también lo vuelve a hacer en .xinitrc)
     pgrep i3 || exec startx "$XDG_CONFIG_HOME/X11/.xinitrc"
