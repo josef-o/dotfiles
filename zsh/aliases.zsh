@@ -6,3 +6,5 @@ alias gp="git push"
 alias d="dirs -v"
 for index ({1..9}) alias "$index"="cd +${index}"; unset index
 
+alias vi="nvim"
+alias vim="nvim"

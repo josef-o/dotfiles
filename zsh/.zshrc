@@ -11,14 +11,16 @@ then
 fi
 
 # Opciones
+setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 
 # para poder autoloadear de external
 fpath=($ZDOTDIR/external $fpath)
 
-# está en external
+# están en external
 autoload -Uz prompt_purification_setup; prompt_purification_setup
+# para que los modos de nvim se vean igual en la terminal
 autoload -Uz cursor_mode && cursor_mode
 
 # Vi mode
@@ -34,7 +36,7 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 
 # autocomplete
-# autoload carga funciones, por eso después la llamamos
+# autoload carga funciones, por eso después las llamamos
 autoload -U compinit; compinit
 # autocomplete hidden files
 _comp_options+=(globdots)
