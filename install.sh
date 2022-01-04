@@ -50,3 +50,8 @@ cp -rf "$DOTFILES/fonts" "$XDG_DATA_HOME"
 mkdir -p "$XDG_CONFIG_HOME/dunst"
 ln -sf "$DOTFILES/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc" 
 
+#######
+# git #
+#######
+# el pager precisa pacman -S diff-so-fancy
+ln -sf "$XDG_CONFIG_HOME/git/.gitconfig" "$HOME/.gitconfig"

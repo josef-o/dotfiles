@@ -1,0 +1,5 @@
+[user]
+	email = josheshin@gmail.com
+	name = josef
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
