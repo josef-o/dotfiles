@@ -54,4 +54,4 @@ ln -sf "$DOTFILES/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 # git #
 #######
 # el pager precisa pacman -S diff-so-fancy
-ln -sf "$XDG_CONFIG_HOME/git/.gitconfig" "$HOME/.gitconfig"
+ln -sf "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
