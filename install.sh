@@ -64,3 +64,20 @@ ln -sf "$DOTFILES/dunst/dunstrc" "$XDG_CONFIG_HOME/dunst/dunstrc"
 #######
 # el pager precisa pacman -S diff-so-fancy
 ln -sf "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+
+########
+# tmux #
+########
+mkdir -p "$XDG_CONFIG_HOME/tmux"
+ln -sf "$DOTFILES/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
+
+# install tmux plugin manager
+if [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm "$XDG_CONFIG_HOME/tmux/plugins/tpm" 
+fi
+
+#########
+# tmuxp #
+#########
+mkdir -p "$XDG_CONFIG_HOME/tmuxp"
+ln -sf "$DOTFILES/tmuxp/dotfiles.yml" "$XDG_CONFIG_HOME/tmuxp/dotfiles.yml"
