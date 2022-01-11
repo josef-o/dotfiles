@@ -28,7 +28,7 @@
 *.color15: #ffffff
 
 URxvt*font: xft:DejaVuSansMono:size=14:antialias=true
-!URxvt*font: xft:Inconsolata Nerd Font Mono:style=Medium:size=14:pixelsize=16:antialias=true
+! URxvt*font: xft:Inconsolata Nerd Font Mono:style=Medium:size=14:pixelsize=16:antialias=true
 URxvt*letterSpace: -1
 
 URxvt*borderLess: false
@@ -39,4 +39,7 @@ URxvt*scrollBar: false
 
 URxvt*saveLines: 5000
 
-! URxvt*perl-ext-common: default
+! para que las manpages tengan colores
+URxvt.colorIT:      #87af5f
+URxvt.colorBD:      #d7d7d7
+URxvt.colorUL:      #87afd7

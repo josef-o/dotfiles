@@ -1,10 +1,18 @@
 " :PlugInstall
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
     Plug 'chrisbra/csv.vim'
-    Plug 'simeji/winresizer' 
     Plug 'junegunn/fzf.vim'
     Plug 'simnalamburt/vim-mundo'
     Plug 'moll/vim-bbye' " :Bdelete en vez de :bdelete mantiene vim abierto
+    Plug 'mboughaba/i3config.vim'
+    Plug 'wgwoods/vim-systemd-syntax'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-commentary'
+    Plug 'itchyny/lightline.vim'
+    Plug 'tmux-plugins/vim-tmux'
+    Plug 'neovim/nvim-lspconfig'
 call plug#end()
 
 " dejate de joder
@@ -59,19 +67,38 @@ inoremap <C-d> <Del>
 nnoremap <silent> <leader><f5> :vsplit $MYVIMRC<CR>
 nnoremap <silent> <leader><f6> :source $MYVIMRC<CR>
 
+" Set ripgrep for grep program
+if executable('rg')
+    set grepprg=rg\ --vimgrep
+endif
+
 " plugins
+
 " csv
 augroup filetype_csv
     autocmd!
     autocmd BufRead ,BufWritePost *.csv :%ArrangeColumn!
     autocmd BufWritePre *.csv :%UnArrangeColumn
 augroup END
-" winresizer
-let g:winresizer_start_key = "<leader>w"
+
 " bbye
 nnoremap <leader>B :Bdelete<cr> ;bbye
 
-" Set ripgrep for grep program
-if executable('rg')
-    set grepprg=rg\ --vimgrep
-endif
+" i3config
+aug i3config_ft_detection
+  au!
+  au BufNewFile,BufRead ~/.config/i3/config set filetype=i3config
+  au BufNewFile,BufRead $DOTFILES/i3/config set filetype=i3config
+aug end
+
+" lightline
+" el modo lo muestra lightline
+set noshowmode 
+let g:lightline = {
+    \ 'colorscheme': 'one',
+    \ }
+
+" lspconfig
+lua << EOF
+require'lspconfig'.pyright.setup{}
+EOF

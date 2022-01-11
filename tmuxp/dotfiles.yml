@@ -9,5 +9,4 @@ windows:
   layout: tiled
   panes:
     -
-    - ls -lah
     -
