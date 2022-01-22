@@ -136,3 +136,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+PS1="[\h \W]\$ "
+
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
