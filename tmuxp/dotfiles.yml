@@ -1,0 +1,11 @@
+session_name: dotfiles
+start_directory: $DOTFILES
+windows:
+- window_name: nvim dotfiles
+  layout: tiled
+  panes:
+    - nvim +FZF
+- window_name: terms
+  layout: tiled
+  panes:
+    -
