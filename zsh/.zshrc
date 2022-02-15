@@ -60,3 +60,19 @@ if [ $(command -v "fzf") ]; then
     source /usr/share/fzf/key-bindings.zsh
 fi
 
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/josef/dev/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/josef/dev/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/josef/dev/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/josef/dev/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

@@ -36,8 +36,10 @@ URxvt*externalBorder: 0
 URxvt*internalBorder: 4
 
 URxvt*scrollBar: false
-
 URxvt*saveLines: 5000
+! desabilita el ctrl+shift que manda keycap picture insert mode
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 ! para que las manpages tengan colores
 URxvt.colorIT:      #87af5f

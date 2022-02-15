@@ -15,6 +15,7 @@ alias ga="git add"
 alias gc="git commit"
 alias gp="git push"
 alias gs="git status"
+alias gco="git checkout"
 
 # cosas de zsh
 for index ({1..9}) alias "$index"="cd +${index}"; unset index

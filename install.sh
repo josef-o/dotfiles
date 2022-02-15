@@ -7,8 +7,10 @@ set -x
 ########
 mkdir -p "$XDG_CONFIG_HOME/nvim"
 mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
+mkdir -p "$XDG_CONFIG_HOME/nvim/plugin"
 # -f es de force, si ya existe el link lo borra y recrea
 ln -sf "$DOTFILES/nvim/init.vim" "$XDG_CONFIG_HOME/nvim"
+ln -sf "$DOTFILES/nvim/plugin" "$XDG_CONFIG_HOME/nvim/plugin"
 
 # install neovim plugin manager
 if [ ! -f "$XDG_DATA_HOME/nvim/site/autoload/plug.vim" ]; then

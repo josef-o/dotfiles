@@ -5,6 +5,11 @@ windows:
   layout: tiled
   panes:
     - nvim +FZF
+- window_name: arch installer
+  start_directory: ~/repos/arch_installer
+  layout: tiled
+  panes:
+    - nvim +FZF
 - window_name: terms
   layout: tiled
   panes:

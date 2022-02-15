@@ -11,10 +11,21 @@ font pango: Inconsolata NF 12
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym mod1+Shift+Up exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3blocks
+bindsym mod1+Shift+Down exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3blocks
+
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl -p spotify play-pause
+bindsym mod1+Shift+2 exec playerctl -p spotify play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym mod1+Shift+Right exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym mod1+Shift+Left exec playerctl previous
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -54,11 +65,21 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
+# move focused workspace between monitors
+bindsym $mod+Ctrl+greater move workspace to output right
+bindsym $mod+Ctrl+less move workspace to output left
+
+# toggle focused container between monitors
+bindsym $mod+Shift+T move workspace to output next
+
 # split in horizontal orientation
 bindsym $mod+CTRL+h split h
 
 # split in vertical orientation
 bindsym $mod+CTRL+v split v
+
+# toggle split
+bindsym $mod+g split toggle
 
 # enter fullscreen mode for the focused container
 bindsym $mod+t fullscreen toggle
@@ -80,25 +101,49 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+q focus child
 
+# floating pop up automatically
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [class="Arandr"] floating enable
+for_window [class="Pavucontrol"] floating enable
+
 # Define names for default workspaces for which we configure key bindings later on
 # We use variables to avoid repeating the names in multiple places
-set $ws1 "1: terms"
-set $ws2 "2: web"
+set $ws1 "1: web"
+set $ws2 "2: terms"
 set $ws3 "3"
-set $ws4 "4: files"
+set $ws4 "4:"
 set $ws5 "5"
-set $ws6 "6: docs"
+set $ws6 "6:"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "10"
+set $ws10 "10: spotify"
 
-assign [class="firefox" instance="Navigator"] $ws2
+assign [class="firefox" instance="Navigator"] $ws1
 
+# los workspaces que asigna cuando se abren
+# los nombres de los programas se averiguan con `xprop`:
+# WM_CLASS(STRING) = "irssi", "URxvt" (el primero es el instance name el segundo es el class)
+#assign [class="Firefox"] $ws1
+assign [class="discord"] $ws5
+assign [class="Rocket.Chat"] $ws5
+assign [class="Org.gnome.Nautilus"] $ws9
+assign [class="Spotify"] $ws10 # no anda muy bien por spotify que hace las cosas en otro orden
+assign [class="Joplin"] $ws8
+assign [class="Steam"] $ws4
+
+for_window [class="^Spotify"] move --no-auto-back-and-forth to workspace $ws10
 # back-n-forth
 workspace_auto_back_and_forth yes
 # blasphemy
 focus_follows_mouse no
+
+# hay workspaces que quiero en el segundo monitor por defecto
+# los outputs se averiguan con `xrandr`
+workspace $ws5 output HDMI-A-0
+workspace $ws8 output HDMI-A-0
+workspace $ws10 output HDMI-A-0
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -148,6 +193,25 @@ bindsym $mod+CTRL+l exec --no-startup-id $i3lockwall
 # exit i3 (logs you out of your X session)
 set $mode_system "System (l) lock, (e) logout, (s) suspend, (r) reboot, (Ctrl+s) shutdown"
 
+# Esto activa los gaps
+# You can also use any non-zero value if you'd like to have a border
+for_window [class=".*"] border pixel 0
+
+gaps inner 5
+
+# Autostart
+# van a sus workspaces asignados
+exec spotify
+exec firefox
+#exec ~/.joplin/Joplin.AppImage
+
+# para el numlock 
+exec numlockx on
+
+# autotiling
+# Es un script de python en .local/bin
+exec_always --no-startup-id autotiling
+
 mode $mode_system {
     bindsym l exec --no-startup-id $i3lockwall, mode "default"
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
@@ -185,7 +249,7 @@ bindsym $mod+p mode "resize"
 
 # terminal scratchpads
 for_window [instance="urxvt_scratchpad"] move to scratchpad, border none
-bindsym $mod+Shift+t [instance="urxvt_scratchpad"] scratchpad show
+bindsym $mod+Shift+g [instance="urxvt_scratchpad"] scratchpad show
 exec urxvtc -name urxvt_scratchpad \
     -e tmux new-session -d -s scratchpad \; \
     new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; \
@@ -305,3 +369,22 @@ exec --no-startup-id dunst
 
 # reloadear remapeo de esc key para cuando se enchufa un teclado
 bindsym $mod+CTRL+k exec "setxkbmap -option 'caps:ctrl_modifier ';xcape -e 'Caps_Lock=Escape ' &"
+
+# configs pulse audio, se averiguan con pactl list cards
+set $audio_card alsa_card.pci-0000_09_00.4
+set $headphone_profile output:analog-stereo
+set $sp_profile output:iec958-stereo
+
+set $audio_profile (h) headphones (p) parlantes
+
+mode "$audio_profile" {
+	bindsym h exec pactl set-card-profile "$audio_card" "$headphone_profile", mode "default"
+	bindsym p exec pactl set-card-profile "$audio_card" "$sp_profile", mode "default"
+
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+Shift+A mode "default"
+}
+bindsym $mod+Shift+A mode "$audio_profile"
