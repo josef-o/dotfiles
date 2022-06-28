@@ -28,7 +28,8 @@
 *.color15: #ffffff
 
 !URxvt*font: xft:DejaVuSansMono:size=14:antialias=true
-URxvt*font: xft:SauceCodePro Nerd Font Mono:style=Medium:size=14:pixelsize=16:antialias=true
+!URxvt*font: xft:SauceCodePro Nerd Font Mono:style=Medium:size=14:pixelsize=14:antialias=true
+URxvt*font: xft::DejaVuSansMono Nerd Font:pixelsize=14:style=Medium:size=14
 URxvt*letterSpace: -1
 
 URxvt*borderLess: false
@@ -45,3 +46,7 @@ URxvt.iso14755_52: false
 URxvt.colorIT:      #87af5f
 URxvt.colorBD:      #d7d7d7
 URxvt.colorUL:      #87afd7
+
+! fondo transparente falso, copia el wallpaper en el fondo
+URxvt*transparent: true
+URxvt*shading: 30

@@ -23,3 +23,7 @@ for index ({1..9}) alias "$index"="cd +${index}"; unset index
 # vim
 alias vi="nvim"
 alias vim="nvim"
+
+# pushd-s-popds
+alias dirs="dirs -v"
+

@@ -3,7 +3,7 @@ set $mod Mod4
 
 # sudo pacman -s ttf-dejavu
 # font pango:DejaVu Sans Mono 8
-font pango: Inconsolata NF 12
+font pango: SauceCodePro Nerd Font Mono 12
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -38,8 +38,9 @@ bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
-# A more modern dmenu replacement is rofi:
-bindsym $mod+space exec "rofi -modi drun,run -show drun"
+# A more modern dmenu replacement is rofi
+#  -modi drun,run -show drun
+bindsym $mod+space exec "rofi -combi-modes window,drun,run -show combi -modes combi"
 
 # change focus
 bindsym $mod+h focus left
@@ -127,8 +128,6 @@ assign [class="firefox" instance="Navigator"] $ws1
 # WM_CLASS(STRING) = "irssi", "URxvt" (el primero es el instance name el segundo es el class)
 #assign [class="Firefox"] $ws1
 assign [class="discord"] $ws5
-assign [class="Rocket.Chat"] $ws5
-assign [class="Org.gnome.Nautilus"] $ws9
 assign [class="Spotify"] $ws10 # no anda muy bien por spotify que hace las cosas en otro orden
 assign [class="Joplin"] $ws8
 assign [class="Steam"] $ws4
@@ -209,7 +208,7 @@ exec firefox
 exec numlockx on
 
 # autotiling
-# Es un script de python en .local/bin
+# es un script de python en .local/bin
 exec_always --no-startup-id autotiling
 
 mode $mode_system {
@@ -249,11 +248,11 @@ bindsym $mod+p mode "resize"
 
 # terminal scratchpads
 for_window [instance="urxvt_scratchpad"] move to scratchpad, border none
-bindsym $mod+Shift+g [instance="urxvt_scratchpad"] scratchpad show
-exec urxvtc -name urxvt_scratchpad \
-    -e tmux new-session -d -s scratchpad \; \
-    new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; \
-    attach -session -d -t scratchpad
+# bindsym $mod+Shift+g [instance="urxvt_scratchpad"] scratchpad show
+# exec urxvtc -name urxvt_scratchpad \
+    # -e tmux new-session -d -s scratchpad \; \
+    # new-window -n vim 'nvim +e /tmp/nvim-tmp.md' \; \
+    # attach -session -d -t scratchpad
 
 # htop scratchpad
 for_window [instance="htop_scratchpad"] move to scratchpad, border none
@@ -264,7 +263,8 @@ exec urxvtc -name htop_scratchpad -e htop
 bindsym $mod+CTRL+s scratchpad show
 
 # wallpaper
-exec --no-startup-id feh --no-fehbg --bg-fill ~/.config/i3/feh/spider.jpg
+set $wallpaper ~/.config/i3/feh/spider.jpg
+exec --no-startup-id feh --no-fehbg --bg-fill $wallpaper
 
 # floaters
 for_window [window_role="pop-up"] floating enable
@@ -336,6 +336,8 @@ bar {
     
     # Disable all tray icons
     # tray_output none
+    #bindsym button4 nop
+    #bindsym button5 nop
 
     # tray_output primary
     colors {
@@ -353,6 +355,8 @@ bar {
 }
 
 set $mode_display "Config monitor resolution - Default config (d)"
+
+exec --no-startup-id sh "$HOME/.config/X11/monitor.sh"
 
 mode $mode_display {
     bindsym d exec --no-startup-id sh "$HOME/.config/X11/monitor.sh", mode "default"

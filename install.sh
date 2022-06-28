@@ -6,20 +6,11 @@ set -x
 # nvim #
 ########
 mkdir -p "$XDG_CONFIG_HOME/nvim"
-mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
-mkdir -p "$XDG_CONFIG_HOME/nvim/plugin"
+# mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
+#mkdir -p "$XDG_CONFIG_HOME/nvim/plugin"
 # -f es de force, si ya existe el link lo borra y recrea
-ln -sf "$DOTFILES/nvim/init.vim" "$XDG_CONFIG_HOME/nvim"
-ln -sf "$DOTFILES/nvim/plugin" "$XDG_CONFIG_HOME/nvim/plugin"
-
-# install neovim plugin manager
-if [ ! -f "$XDG_DATA_HOME/nvim/site/autoload/plug.vim" ]; then
-    curl -fLo "$XDG_DATA_HOME/nvim/site/autoload/plug.vim" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
-# Install (or update) all the plugins
-nvim --noplugin +PlugUpdate +qa
+ln -sf "$DOTFILES/nvim/init.lua" "$XDG_CONFIG_HOME/nvim"
+ln -sf "$DOTFILES/nvim/lua" "$XDG_CONFIG_HOME/nvim/lua"
 
 #######
 # X11 #
@@ -32,6 +23,13 @@ ln -s "$DOTFILES/X11" "$XDG_CONFIG_HOME"
 ########
 rm -rf "$XDG_CONFIG_HOME/i3"
 ln -s "$DOTFILES/i3" "$XDG_CONFIG_HOME" 
+
+
+########
+# rofi #
+########
+mkdir -p "$XDG_CONFIG_HOME/rofi" 
+ln -s "$DOTFILES/i3/rofi/config.rasi" "$XDG_CONFIG_HOME/rofi/config.rasi" 
 
 #######
 # zsh #
